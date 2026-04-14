@@ -2,10 +2,12 @@ import os
 from flask import Flask, request, jsonify
 import requests
 from dotenv import load_dotenv
+from flask_cors import CORS
 
 load_dotenv()
 
 app = Flask(__name__)
+CORS(app)
 app.config["JSON_AS_ASCII"] = False
 
 ENVIRONMENT = os.getenv("ENVIRONMENT", "dev")
@@ -37,7 +39,6 @@ def chat():
         )
 
         result = response.json()
-
         return jsonify({
             "response": result.get("response"),
             "environment": ENVIRONMENT
